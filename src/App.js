@@ -1,16 +1,17 @@
-import ErrorBoundary from "./component/ErrorBoundary";
-import Ruhi from "./component/Ruhi";
-import Giash from "./component/Giash";
-import Kawsar from "./component/Kawsar";
-import Rabbi from "./component/Rabbi";
-import Mobin from "./component/Mobin";
-import Root from "./component/Root";
+import { QueryClient, QueryClientProvider } from "react-query";
 import {
-  createBrowserRouter,
-  RouterProvider,
   Route,
+  RouterProvider,
+  createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import ErrorBoundary from "./component/ErrorBoundary";
+import Giash from "./component/Giash";
+import Kawsar from "./component/Kawsar";
+import Mobin from "./component/Mobin";
+import Rabbi from "./component/Rabbi";
+import Root from "./component/Root";
+import Ruhi from "./component/Ruhi";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,9 +25,12 @@ const router = createBrowserRouter(
   )
 );
 export default function App() {
+  const queryClient = new QueryClient();
   return (
     <div>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </div>
   );
 }
