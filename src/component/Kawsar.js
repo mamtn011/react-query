@@ -1,13 +1,19 @@
 import axios from "axios";
-import { Button, Container, Table } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Container, Form, Modal, Table } from "react-bootstrap";
 import { useQuery } from "react-query";
 
-const fetchTodos = () => {
-  return axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5');
+const fetchPosts = () => {
+  return axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5');
 }
 
 export default function Kawsar() {
-  const {data: todos, isLoading, isError, isSuccess, error } = useQuery('todos', fetchTodos);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
+  const {data: posts, isLoading, isError, isSuccess, error } = useQuery('posts', fetchPosts);
 
   let content = null;
   if (isLoading) {
@@ -25,19 +31,19 @@ export default function Kawsar() {
           <tr>
             <th>#</th>
             <th>Title</th>
-            <th>Completed</th>
+            <th>Body</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {todos?.data.map((todo) => (
+          {posts?.data.map((todo) => (
             <>
               <tr keys={todo.id}>
                 <td>{todo.id}</td>
-                <td>{todo.title}</td>
-                <td>{`${todo.completed}`}</td>
+                <td>{todo.title.slice(0, 30)}...</td>
+                <td>{`${todo.body.slice(0, 30)}`}...</td>
                 <td>
-                  <Button variant="primary" style={{ marginRight: "25px" }}>
+                  <Button variant="primary" style={{ marginRight: "25px" }} onClick={handleShow}>
                     Create
                   </Button>
                   <Button variant="primary" style={{ marginRight: "25px" }}>
@@ -53,5 +59,46 @@ export default function Kawsar() {
     );
   }
 
-  return <Container>{content}</Container>;
+  return <Container>
+    
+    {content}
+
+    
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Create Post</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Post title"
+              autoFocus
+            />
+          </Form.Group>
+          
+          <Form.Group
+            className="mb-3"
+            controlId="exampleForm.ControlTextarea1"
+          >
+            <Form.Label>Body</Form.Label>
+            <Form.Control as="textarea" rows={3} placeholder="Post body" />
+          </Form.Group>
+
+        </Form>
+      </Modal.Body>
+
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={handleClose}>
+          Save
+        </Button>
+      </Modal.Footer>
+    </Modal>
+    
+    </Container>;
 }
