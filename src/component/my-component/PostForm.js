@@ -1,9 +1,9 @@
 import { useState } from "react"
-function PostFrom({onSubmit})
+function PostFrom({onSubmit,initalValue})
 {
     const [post, setPost] = useState({
-        title : "",
-        body : ""
+        title : initalValue.title || "",
+        body : initalValue.body ||  ""
     })
 
 

@@ -23,12 +23,10 @@ function AddPost()
         ...post
       })
     }
-
     return(
         <>
             <h2>Add Post</h2>
-            {/* <PostFrom /> */}
-            <PostFrom onSubmit={handleAppPost} />
+            <PostFrom onSubmit={handleAppPost} initalValue={{}} />
         </>
     )
 }
