@@ -1,5 +1,5 @@
 import { useState } from "react"
-function PostFrom()
+function PostFrom({onSubmit})
 {
     const [post, setPost] = useState({
         title : "",
@@ -26,6 +26,7 @@ function PostFrom()
     const handleSubmit = (e) => 
     {
         e.preventDefault(); 
+        onSubmit(post)
         setPost({
             title : "", 
             body : ""

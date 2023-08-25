@@ -8,6 +8,8 @@ import Root from "./component/Root";
 import PostList from "./component/PostList";
 import Post from "./component/Post";
 import EditPost from "./component/EditPost";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import {
   createBrowserRouter,
@@ -34,11 +36,16 @@ const router = createBrowserRouter(
       <Route path="rabbi" element={<Rabbi />} />
     </Route>
   )
-);
+); 
+const queryClient = new QueryClient()
 export default function App() {
+ 
   return (
+    <QueryClientProvider client={queryClient}>
     <div>
         <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </div>
+    </QueryClientProvider>
   );
 }
