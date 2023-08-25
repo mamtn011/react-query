@@ -5,11 +5,16 @@ import Kawsar from "./component/Kawsar";
 import Rabbi from "./component/Rabbi";
 import Mobin from "./component/Mobin";
 import Root from "./component/Root";
+import PostList from "./component/PostList";
+import Post from "./component/Post";
+import EditPost from "./component/EditPost";
+
 import {
   createBrowserRouter,
   RouterProvider,
   Route,
   createRoutesFromElements,
+  BrowserRouter,
 } from "react-router-dom";
 
 const router = createBrowserRouter(
@@ -18,7 +23,14 @@ const router = createBrowserRouter(
       <Route path="ruhi" element={<Ruhi />} />
       <Route path="kawsar" element={<Kawsar />} />
       <Route path="mobin" element={<Mobin />} />
+      {/* my project route is here */}
+
       <Route path="giash" element={<Giash />} />
+      <Route path="giash" element={<PostList />} />
+      <Route path="giash/:id" element={<Post />} />
+      <Route path="giash/:id/edit" element={<EditPost />} />
+
+      {/* my project route is here */}
       <Route path="rabbi" element={<Rabbi />} />
     </Route>
   )
@@ -26,7 +38,7 @@ const router = createBrowserRouter(
 export default function App() {
   return (
     <div>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
     </div>
   );
 }
