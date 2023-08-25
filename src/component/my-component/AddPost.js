@@ -25,7 +25,7 @@ function AddPost()
     }
     return(
         <>
-            <h2>Add Post</h2>
+            <h2 className="form-heading">Create Post</h2>
             <PostFrom onSubmit={handleAppPost} initalValue={{}} />
         </>
     )

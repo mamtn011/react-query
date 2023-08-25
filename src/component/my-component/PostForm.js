@@ -18,8 +18,9 @@ function PostFrom({onSubmit,initalValue})
     // -- create field
     const renderField = (label) => (
         <div>
-            <label>{label}</label>
-            <input onChange={hangleChangeInput} type="text" name={label.toLowerCase()} value={post[label.toLowerCase()]} />
+            <p className="label-design">{label}</p>
+            <input className="inputFeild" onChange={hangleChangeInput} type="text"
+             name={label.toLowerCase()} value={post[label.toLowerCase()]} />
         </div>
     )
     // -- Hendle Submit button
@@ -35,10 +36,10 @@ function PostFrom({onSubmit,initalValue})
     }
 
     return(
-        <form onSubmit={handleSubmit}>
+        <form className="form-design" onSubmit={handleSubmit}>
             {renderField('Title')}
             {renderField('Body')}
-            <button type="submit">Submit</button>
+            <button type="submit" className="submitBtn">Submit</button>
         </form>
     )
 }

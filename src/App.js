@@ -16,7 +16,6 @@ import {
   RouterProvider,
   Route,
   createRoutesFromElements,
-  BrowserRouter,
 } from "react-router-dom";
 
 const router = createBrowserRouter(

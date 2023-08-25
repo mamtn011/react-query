@@ -22,7 +22,7 @@ function PostList()
             console.log('successfully delete')
             navigate("/giash");
             }
-    })
+    });
  
     const handleDelete = (id) => 
     {
@@ -34,27 +34,27 @@ function PostList()
     if(isError) return <h2>{error.message}</h2>
     
     return(
-        <>
+        <div className="postListDesing">
             <AddPost />
-            <h2>PostList</h2>
+            <h3 className="heading-design"><strong>Your Post List's</strong></h3>
             {
                 posts.map((post) => 
                 {
-                    return <div key={post.id} style={{background : '#777'}}>
+                    return <div className="postListDesign" key={post.id}>
 
                         <div>
                             <h4  style={{cursor:"pointer"}} onClick={() => navigate(`/giash/${post.id}`)}>{post.title}</h4>
                             <p  style={{cursor:"pointer"}} onClick={() => navigate(`/giash/${post.id}`)}>{post.body}</p>
                         </div>
                       
-                        <button onClick={() => navigate(`/giash/${post.id}/edit`)}>Edit</button>
-                        <button onClick={() => handleDelete(post.id)}>Delete</button>
+                        <button onClick={() => navigate(`/giash/${post.id}/edit`)}>Update</button>
+                        <button className="deleteBtn" onClick={() => handleDelete(post.id)}>Delete</button>
                         <hr />
                     </div>
                    
                 })
             }
-        </>
+        </div>
 
     )
 }
