@@ -1,10 +1,12 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchPosts } from "./api/posts";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import AddPost from "./my-component/AddPost";
+import { deletePost } from "./api/posts";
 
 function PostList()
 {
+    const queryClient = useQueryClient(); 
     const navigate = useNavigate()
     // were getting data form json
     const {isLoading, data : posts, isError, error,} = useQuery({
@@ -12,11 +14,25 @@ function PostList()
         queryFn : fetchPosts
     }); 
 
+    // DELETE
+    const deletePostMutation = useMutation({
+        mutationFn : deletePost,
+        onSuccess : () => {
+            queryClient.invalidateQueries({queryKey : ["posts"]}); 
+            console.log('successfully delete')
+            navigate("/giash");
+            }
+    })
+ 
+    const handleDelete = (id) => 
+    {
+        deletePostMutation.mutate(id)
+        console.log(id)
+    }
     // 
     if(isLoading) return <h2>loding...</h2>
     if(isError) return <h2>{error.message}</h2>
-
-
+    
     return(
         <>
             <AddPost />
@@ -32,7 +48,7 @@ function PostList()
                         </div>
                       
                         <button onClick={() => navigate(`/giash/${post.id}/edit`)}>Edit</button>
-                        <button>Delete</button>
+                        <button onClick={() => handleDelete(post.id)}>Delete</button>
                         <hr />
                     </div>
                    
