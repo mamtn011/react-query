@@ -11,14 +11,18 @@ const addPost = (post) => {
   return axios.post("https://jsonplaceholder.typicode.com/posts", post);
 };
 
+const deletePost = (postId) => {
+  return axios.delete(`https://jsonplaceholder.typicode.com/posts/${postId}`);
+};
+
+
+
 export default function Kawsar() {
   const queryClient = useQueryClient();
+
+  // create req
   const {
-    mutate,
-    isLoading: addPostIsLoading,
-    isError: addPostIsError,
-    error: addPostError,
-    isSuccess: addPostIsSuccess,
+    mutate
   } = useMutation(addPost, {
     onSuccess: (data) => {
       // cache update
@@ -27,6 +31,20 @@ export default function Kawsar() {
       });
     },
   });
+
+  // delete req
+  const {
+    mutate: deleteMutate
+  } = useMutation(deletePost, {
+    onSuccess: (data, id) => {
+      // cache update
+      queryClient.setQueryData("posts", (oldQueryData) => {
+        const filteredPosts = oldQueryData.data.filter(post => post.id !== id);
+        return { ...oldQueryData, data: [...filteredPosts] };
+      });
+    },
+  });
+  
   const [postData, setPostData] = useState({});
   const [show, setShow] = useState(false);
   const handleClose = () => {
@@ -68,6 +86,11 @@ export default function Kawsar() {
     },
   });
 
+  const handleDelete = (id) => {
+    // delete req fire
+    deleteMutate(id);
+  }
+
   let content = null;
   if (isLoading) {
     content = <h2>Loading....</h2>;
@@ -105,7 +128,7 @@ export default function Kawsar() {
                 <Button variant="primary" style={{ marginRight: "25px" }}>
                   Edit
                 </Button>
-                <Button variant="danger">Delete</Button>
+                <Button variant="danger" onClick={() => handleDelete(post.id)}>Delete</Button>
               </td>
             </tr>
           ))}
