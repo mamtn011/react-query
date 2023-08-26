@@ -2,7 +2,7 @@ import ErrorBoundary from "./component/ErrorBoundary";
 import Ruhi from "./component/Ruhi";
 import Giash from "./component/Giash";
 import Kawsar from "./component/Kawsar";
-import Rabbi from "./component/Rabbi";
+import Rabbi from "./rabbi/Rabbi";
 import Mobin from "./component/Mobin";
 import Root from "./component/Root";
 import {

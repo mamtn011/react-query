@@ -1,22 +1,10 @@
 {
   "posts": [
     {
-      "title": "fsdfdsf sfsdf",
+      "title": "hello",
       "completed": false,
-      "id": 3,
-      "todo": 3
-    },
-    {
-      "title": "safsadfsdf",
-      "completed": false,
-      "todo": 3,
-      "id": 4
-    },
-    {
-      "title": "fsafsdf",
-      "completed": false,
-      "todo": 4,
-      "id": 5
+      "todo": 1,
+      "id": 1
     }
   ],
   "comments": [],
