@@ -11,19 +11,23 @@ const addPost = (post) => {
   return axios.post("https://jsonplaceholder.typicode.com/posts", post);
 };
 
+const editPost = (post) => {
+  return axios.patch(`https://jsonplaceholder.typicode.com/posts/${post.id}`, post);
+};
+
 const deletePost = (postId) => {
   return axios.delete(`https://jsonplaceholder.typicode.com/posts/${postId}`);
 };
 
-
+// querying
+// useQuery by id => useQuery(['superheroes', heroId], fetchHeroData)
+// parallel query
 
 export default function Kawsar() {
   const queryClient = useQueryClient();
 
   // create req
-  const {
-    mutate
-  } = useMutation(addPost, {
+  const { mutate } = useMutation(addPost, {
     onSuccess: (data) => {
       // cache update
       queryClient.setQueryData("posts", (oldQueryData) => {
@@ -32,20 +36,30 @@ export default function Kawsar() {
     },
   });
 
+  // edit req
+  const { mutate: editMutate } = useMutation(editPost, {
+    onSuccess: (data) => {
+      // cache update
+      // queryClient.setQueryData("posts", (oldQueryData) => {
+      //   return { ...oldQueryData, data: [...oldQueryData.data, data.data] };
+      // });
+    },
+  });
+
   // delete req
-  const {
-    mutate: deleteMutate
-  } = useMutation(deletePost, {
+  const { mutate: deleteMutate } = useMutation(deletePost, {
     onSuccess: (data, id) => {
       // cache update
       queryClient.setQueryData("posts", (oldQueryData) => {
-        const filteredPosts = oldQueryData.data.filter(post => post.id !== id);
+        const filteredPosts = oldQueryData.data.filter(
+          (post) => post.id !== id
+        );
         return { ...oldQueryData, data: [...filteredPosts] };
       });
     },
   });
-  
-  const [postData, setPostData] = useState({});
+
+  const [postData, setPostData] = useState({title: '', body: ''});
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
@@ -57,10 +71,18 @@ export default function Kawsar() {
     e.preventDefault();
   };
 
-  const handleCreate = () => {
-    // api req fire
-    mutate(postData);
+  const handleSave = () => {
+    if(postData?.id) {
 
+      // edit req fire
+      editMutate(postData);
+
+    } else {
+      
+      // api req fire
+      mutate(postData);
+    }
+    
     // disabled modal
     setShow(false);
   };
@@ -86,10 +108,16 @@ export default function Kawsar() {
     },
   });
 
+  const handleEdit = (post) => {
+    // show modal
+    setShow(true);
+    setPostData(post)
+  }
+
   const handleDelete = (id) => {
     // delete req fire
     deleteMutate(id);
-  }
+  };
 
   let content = null;
   if (isLoading) {
@@ -108,7 +136,11 @@ export default function Kawsar() {
             <th>#</th>
             <th>Title</th>
             <th>Body</th>
-            <th>Action</th>
+            <th>
+              <Button variant="primary" onClick={handleShow}>
+                Create
+              </Button>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -118,17 +150,12 @@ export default function Kawsar() {
               <td>{post.title.slice(0, 30)}...</td>
               <td>{`${post.body.slice(0, 30)}`}...</td>
               <td>
-                <Button
-                  variant="primary"
-                  style={{ marginRight: "25px" }}
-                  onClick={handleShow}
-                >
-                  Create
-                </Button>
-                <Button variant="primary" style={{ marginRight: "25px" }}>
+                <Button variant="primary" style={{ marginRight: "25px" }} onClick={() => handleEdit(post)}>
                   Edit
                 </Button>
-                <Button variant="danger" onClick={() => handleDelete(post.id)}>Delete</Button>
+                <Button variant="danger" onClick={() => handleDelete(post.id)}>
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}
@@ -143,7 +170,7 @@ export default function Kawsar() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Create Post</Modal.Title>
+          <Modal.Title>{postData.id ? 'Edit' : 'Create'} Post</Modal.Title>
         </Modal.Header>
         <form onSubmit={handleSubmit}>
           <Modal.Body>
@@ -155,6 +182,7 @@ export default function Kawsar() {
                 name="title"
                 id="title"
                 onChange={handleChange}
+                value={postData.title}
               />
             </Form.Group>
 
@@ -170,6 +198,7 @@ export default function Kawsar() {
                 cols="30"
                 rows="3"
                 onChange={handleChange}
+                value={postData.body}
               ></textarea>
             </Form.Group>
           </Modal.Body>
@@ -178,12 +207,13 @@ export default function Kawsar() {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleCreate}>
-              Save
+            <Button variant="primary" onClick={handleSave}>
+            {postData.id ? 'Edit' : 'Save'}
             </Button>
           </Modal.Footer>
         </form>
       </Modal>
+
     </Container>
   );
 }
