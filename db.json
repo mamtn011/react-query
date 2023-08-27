@@ -1,16 +1,6 @@
 {
   "mobin": [
     {
-      "id": "2023-08-27T00:40:35.636Z",
-      "name": "Abul hossain",
-      "profession": "Student"
-    },
-    {
-      "id": "2023-08-27T00:46:55.777Z",
-      "name": "Arif Billah",
-      "profession": "Digital Marketer"
-    },
-    {
       "id": "2023-08-27T03:18:12.295Z",
       "name": "Mustakim Al Mobin",
       "profession": "Web Developer"
@@ -29,8 +19,8 @@
   "giasuddin": [
     {
       "id": 1,
-      "title": "this is title one",
-      "body": "this is body one"
+      "title": "this is gias uddin ",
+      "body": "this is body vuiya"
     },
     {
       "id": 2,
@@ -41,6 +31,11 @@
       "id": "9ffa5929-a065-47b5-96c3-d0c95bc8a233",
       "title": "Something about myself",
       "body": "Hello everyone how are you all"
+    },
+    {
+      "id": "dbdc0960-9021-45fa-8141-5c9075027f6f",
+      "title": "",
+      "body": ""
     }
   ],
   "ruhi": [],

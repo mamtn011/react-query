@@ -20,12 +20,13 @@ function AddPost()
       createPostMotation.mutate({
         id : uuidv4(),
         ...post
-      })
+      });
     }
+
     return(
         <>
             <h2>Add Post</h2>
-            <PostForm onSubmit={handleAppPost} />
+            <PostForm onSubmit={handleAppPost} initalValue={{}} />
         </>
     )
 }
