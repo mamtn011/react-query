@@ -1,3 +1,9 @@
+import fazlul from "../fazlul/fazlul";
+
 export default function Rabbi() {
-	return <div>Rabbi</div>;
+  return (
+    <>
+      <fazlul />
+    </>
+  );
 }
