@@ -1,8 +1,11 @@
+import AddPost from "./giasuddin-component/AddPost";
+
 function PostList()
 {
     return (
         <>
-            <h2>Post List</h2>
+            <AddPost />
+            <h4>Post List</h4>
         </>
     )
 }

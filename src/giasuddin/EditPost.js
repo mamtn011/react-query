@@ -1,8 +1,10 @@
+import PostForm from "./giasuddin-component/PostForm";
+
 function EditPost()
 {
     return (
         <>
-            <h2>Edit List</h2>
+            <h2><PostForm /></h2>
         </>
     )
 }
