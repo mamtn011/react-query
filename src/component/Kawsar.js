@@ -1,3 +1,7 @@
+import Main from "../kawsar/Main";
+
 export default function Kawsar() {
-  return <div>Kawser</div>;
+  return <div>
+    <Main />
+  </div>;
 }
