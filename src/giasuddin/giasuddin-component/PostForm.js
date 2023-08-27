@@ -17,8 +17,8 @@ function PostForm({onSubmit,initalValue})
 
     const renderField = (label) => (
         <div>
-            <label>{label}</label>
-            <input onChange={hangleChangeInput} type="text" name={label.toLowerCase()} value={post[label.toLowerCase()]} />
+            <p className="label-design">{label}</p>
+            <input className="inputFeild" onChange={hangleChangeInput} type="text" name={label.toLowerCase()} value={post[label.toLowerCase()]} />
         </div>
     )
 
@@ -35,10 +35,10 @@ function PostForm({onSubmit,initalValue})
 
 
      return(
-        <form onSubmit={handleSubmit}>
+        <form  className="form-design" onSubmit={handleSubmit}>
             {renderField('Title')}
             {renderField('Body')}
-            <button type="submit">Submit</button>
+            <button  className="submitBtn" type="submit">Submit</button>
         </form>
     )
 }
