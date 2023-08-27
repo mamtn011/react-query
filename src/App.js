@@ -5,6 +5,9 @@ import Kawsar from "./component/Kawsar";
 import Rabbi from "./component/Rabbi";
 import Mobin from "./component/Mobin";
 import Root from "./component/Root";
+
+import MobinEdit from "./mobin/MobinEdit";
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -18,6 +21,7 @@ const router = createBrowserRouter(
       <Route path="ruhi" element={<Ruhi />} />
       <Route path="kawsar" element={<Kawsar />} />
       <Route path="mobin" element={<Mobin />} />
+      <Route path="mobin-edit/:id" element={<MobinEdit />} />
       <Route path="giash" element={<Giash />} />
       <Route path="rabbi" element={<Rabbi />} />
     </Route>

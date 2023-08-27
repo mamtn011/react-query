@@ -1,3 +1,9 @@
+import MobinMain from "../mobin/MobinMain";
+
 export default function Mobin() {
-  return <div>Mobin</div>;
+  return (
+    <div>
+      <MobinMain />
+    </div>
+  );
 }
