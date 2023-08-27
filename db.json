@@ -22,7 +22,13 @@
     }
   ],
   "giasuddin": [],
-  "ruhi": [],
+  "ruhi": [
+    {
+      "name": "ruhi",
+      "email": "zannay@gmail.com",
+      "id": 1
+    }
+  ],
   "fazlerabbi": [
     {
       "title": "hello my name is rabbi",
