@@ -34,18 +34,18 @@
   "kawsar": [
     {
       "id": 1,
-      "title": "Post Title no 1",
-      "body": "Post body 1"
+      "title": "Post Title no 1 updated",
+      "body": "Post body 1 updated"
     },
     {
       "id": 2,
-      "title": "Post Title no 2",
-      "body": "Post body 2"
+      "title": "Post Title no 2 updated",
+      "body": "Post body 2 updated"
     },
     {
-      "id": 3,
-      "title": "Post Title no 3",
-      "body": "Post body 3"
+      "title": "Todo title no 3 updated",
+      "body": "Todo title body no 3 updated",
+      "id": 3
     }
   ]
 }

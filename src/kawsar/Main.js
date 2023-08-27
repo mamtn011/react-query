@@ -3,25 +3,16 @@ import axios from "axios";
 import { useState } from "react";
 import { Button, Container, Form, Modal, Table } from "react-bootstrap";
 
-const addPost = (post) => {
-  return axios.post("https://jsonplaceholder.typicode.com/posts", post);
-};
-
-const editPost = (post) => {
-  return axios.patch(
-    `https://jsonplaceholder.typicode.com/posts/${post.id}`,
-    post
-  );
-};
-
-
 // querying
 // useQuery by id => useQuery(['superheroes', heroId], fetchHeroData)
 // parallel query
 
 export default function Main() {
   const queryClient = useQueryClient();
+  const [todoData, setTodoData] = useState({ title: "", body: "" });
+  const [show, setShow] = useState(false);
 
+  // get api req
   const {
     data: posts,
     isLoading,
@@ -33,76 +24,77 @@ export default function Main() {
     queryFn: () => axios.get("http://localhost:4000/kawsar"),
   });
 
-  // create req
-  //   const { mutate } = useMutation(addPost, {
-  //     onSuccess: (data) => {
-  //       // cache update
-  //       queryClient.setQueryData("posts", (oldQueryData) => {
-  //         return { ...oldQueryData, data: [...oldQueryData.data, data.data] };
-  //       });
-  //     },
-  //   });
-
-  // edit req
-  //   const { mutate: editMutate } = useMutation(editPost, {
-  //     onSuccess: (data) => {
-  //       // cache update
-  //       // queryClient.setQueryData("posts", (oldQueryData) => {
-  //       //   return { ...oldQueryData, data: [...oldQueryData.data, data.data] };
-  //       // });
-  //     },
-  //   });
-
-  // delete req
-  const { mutate: deleteMutate } = useMutation({
-    mutationFn: (postId) => axios.delete(`https://jsonplaceholder.typicode.com/posts/${postId}`),
-    onSuccess: (data, id) => {
-        // cache update
-        queryClient.setQueryData(["todos"], (oldQueryData) => {
-          const filteredTodos = oldQueryData.data.filter(
-            (todo) => todo.id !== id
-          );
-          return { ...oldQueryData, data: [...filteredTodos] };
-        });
-      },
+  // create api req
+  const { mutate } = useMutation({
+    mutationFn: (todo) => axios.post("http://localhost:4000/kawsar", todo),
+    onSuccess: (data) => {
+      // Ui cache update
+      queryClient.setQueryData(["todos"], (oldQueryData) => {
+        return { ...oldQueryData, data: [...oldQueryData.data, data.data] };
+      });
+    },
   });
 
-  const [postData, setPostData] = useState({ title: "", body: "" });
-  const [show, setShow] = useState(false);
+  // edit api req
+  const { mutate: editMutate } = useMutation({
+    mutationFn: (todo) => axios.patch(`http://localhost:4000/kawsar/${todo.id}`, todo),
+    onSuccess: (res) => {
+        // UI cache update
+        queryClient.setQueryData(["todos"], (oldQueryData) => {
+            const foundTodo = oldQueryData.data.find((todo) => todo.id === res.data.id);
+            foundTodo.title = res.data.title
+            foundTodo.body = res.data.body
+            return oldQueryData;
+        });
+    },
+  });
+
+  // delete api req
+  const { mutate: deleteMutate } = useMutation({
+    mutationFn: (todoId) =>
+      axios.delete(`http://localhost:4000/kawsar/${todoId}`),
+    onSuccess: (data, id) => {
+      // cache update
+      queryClient.setQueryData(["todos"], (oldQueryData) => {
+        const filteredTodos = oldQueryData.data.filter(
+          (todo) => todo.id !== id
+        );
+        return { ...oldQueryData, data: [...filteredTodos] };
+      });
+    },
+  });
+
+  const handleShow = () => setShow(true);
   const handleClose = () => {
     setShow(false);
-    setPostData({});
+    setTodoData({});
   };
-  const handleShow = () => setShow(true);
+  const handleChange = (e) => {
+    setTodoData({
+      ...todoData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const handleSubmit = (e) => e.preventDefault();
 
   const handleSave = () => {
-    if (postData?.id) {
+    if (todoData?.id) {
       // edit req fire
-      //   editMutate(postData);
+      editMutate(todoData);
     } else {
       // api req fire
-      //   mutate(postData);
+      mutate(todoData);
     }
 
     // disabled modal
     setShow(false);
   };
 
-  const handleChange = (e) => {
-    setPostData({
-      ...postData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleEdit = (post) => {
+  const handleEdit = (todo) => {
     // show modal
     setShow(true);
-    setPostData(post);
+    setTodoData(todo);
   };
 
   const handleDelete = (id) => {
@@ -128,21 +120,27 @@ export default function Main() {
             <th>Title</th>
             <th>Body</th>
             <th>
-              <Button variant="primary">Create</Button>
+              <Button variant="primary" onClick={handleShow}>
+                Create
+              </Button>
             </th>
           </tr>
         </thead>
         <tbody>
-          {posts?.data.map((post) => (
-            <tr key={post.id}>
-              <td>{post.id}</td>
-              <td>{post.title.slice(0, 30)}...</td>
-              <td>{`${post.body.slice(0, 30)}`}...</td>
+          {posts?.data.map((todo) => (
+            <tr key={todo.id}>
+              <td>{todo.id}</td>
+              <td>{todo.title}</td>
+              <td>{`${todo.body}`}</td>
               <td>
-                <Button variant="primary" style={{ marginRight: "25px" }}>
+                <Button
+                  variant="primary"
+                  style={{ marginRight: "25px" }}
+                  onClick={() => handleEdit(todo)}
+                >
                   Edit
                 </Button>
-                <Button variant="danger" onClick={() => handleDelete(post.id)}>
+                <Button variant="danger" onClick={() => handleDelete(todo.id)}>
                   Delete
                 </Button>
               </td>
@@ -159,7 +157,7 @@ export default function Main() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{postData.id ? "Edit" : "Create"} Post</Modal.Title>
+          <Modal.Title>{todoData.id ? "Edit" : "Create"} Todo</Modal.Title>
         </Modal.Header>
         <form onSubmit={handleSubmit}>
           <Modal.Body>
@@ -171,7 +169,7 @@ export default function Main() {
                 name="title"
                 id="title"
                 onChange={handleChange}
-                value={postData.title}
+                value={todoData.title}
               />
             </Form.Group>
 
@@ -187,7 +185,7 @@ export default function Main() {
                 cols="30"
                 rows="3"
                 onChange={handleChange}
-                value={postData.body}
+                value={todoData.body}
               ></textarea>
             </Form.Group>
           </Modal.Body>
@@ -197,7 +195,7 @@ export default function Main() {
               Close
             </Button>
             <Button variant="primary" onClick={handleSave}>
-              {postData.id ? "Edit" : "Save"}
+              {todoData.id ? "Edit" : "Save"}
             </Button>
           </Modal.Footer>
         </form>
