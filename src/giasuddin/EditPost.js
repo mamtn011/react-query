@@ -7,5 +7,5 @@ function EditPost()
             <h2><PostForm /></h2>
         </>
     )
-}
+};
 export default EditPost;

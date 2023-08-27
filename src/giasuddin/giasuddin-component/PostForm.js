@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function PostForm()
+function PostForm({onSubmit})
 {
     const [post, setPost] = useState({
         title : "",
@@ -25,7 +25,7 @@ function PostForm()
     const handleSubmit = (e) => 
     {
         e.preventDefault(); 
-
+        onSubmit(post)
         setPost({
             title : "", 
             body : ""
