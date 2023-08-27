@@ -40,5 +40,12 @@ export async function updatePost(updatedPost)
     return response.json()
 }
 
-
+// Delete
+export async function deletePost(id)
+{
+    const response = await fetch(`http://localhost:4000/giasuddin/${id}`, {
+        method : "DELETE",
+    });
+    return response.json()
+}
 
