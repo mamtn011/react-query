@@ -31,5 +31,21 @@
       "id": 1
     }
   ],
-  "kawsar": []
+  "kawsar": [
+    {
+      "id": 1,
+      "title": "Post Title no 1 updated",
+      "body": "Post body 1 updated"
+    },
+    {
+      "id": 2,
+      "title": "Post Title no 2 updated",
+      "body": "Post body 2 updated"
+    },
+    {
+      "title": "Todo title no 3 updated",
+      "body": "Todo title body no 3 updated",
+      "id": 3
+    }
+  ]
 }
