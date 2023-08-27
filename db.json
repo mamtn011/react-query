@@ -1,0 +1,51 @@
+{
+  "mobin": [
+    {
+      "id": "2023-08-27T00:40:35.636Z",
+      "name": "Abul Hossain",
+      "profession": "Developer"
+    },
+    {
+      "id": "2023-08-27T00:46:55.777Z",
+      "name": "Arif Billah",
+      "profession": "Digital Marketer"
+    },
+    {
+      "id": "2023-08-27T03:18:12.295Z",
+      "name": "Mustakim Al Mobin",
+      "profession": "Web Developer"
+    },
+    {
+      "id": "2023-08-27T03:18:25.393Z",
+      "name": "Mahmoda Nawshad",
+      "profession": "Web Designer"
+    }
+  ],
+  "giasuddin": [],
+  "ruhi": [],
+  "fazlerabbi": [
+    {
+      "title": "hello my name is rabbi",
+      "completed": false,
+      "todo": 1,
+      "id": 1
+    }
+  ],
+  "kawsar": [
+    {
+      "id": 1,
+      "title": "Post Title no 1 updated",
+      "body": "Post body 1 updated"
+    },
+    {
+      "id": 2,
+      "title": "Post Title no 2 updated",
+      "body": "Post body 2 updated"
+    },
+    {
+      "title": "Todo title no 3 updated",
+      "body": "Todo title body no 3 updated",
+      "id": 3
+    }
+  ]
+}
