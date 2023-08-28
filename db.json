@@ -2,8 +2,8 @@
   "mobin": [
     {
       "id": "2023-08-27T00:40:35.636Z",
-      "name": "Abul hossain",
-      "profession": "Student"
+      "name": "Abul Hossain",
+      "profession": "Developer"
     },
     {
       "id": "2023-08-27T00:46:55.777Z",
@@ -18,7 +18,7 @@
     {
       "id": "2023-08-27T03:18:25.393Z",
       "name": "Mahmoda Nawshad",
-      "profession": "Graphic Designer"
+      "profession": "Web Designer"
     }
   ],
   "giasuddin": [],
@@ -40,5 +40,21 @@
       "id": 1
     }
   ],
-  "kawsar": []
+  "kawsar": [
+    {
+      "id": 1,
+      "title": "Post Title no 1 updated",
+      "body": "Post body 1 updated"
+    },
+    {
+      "id": 2,
+      "title": "Post Title no 2 updated",
+      "body": "Post body 2 updated"
+    },
+    {
+      "title": "Todo title no 3 updated",
+      "body": "Todo title body no 3 updated",
+      "id": 3
+    }
+  ]
 }
