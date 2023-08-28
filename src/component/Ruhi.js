@@ -1,3 +1,9 @@
+import RuhiMain from '../ruhi/RuhiMain';
+
 export default function Ruhi() {
-  return <div>Ruhi</div>;
+	return (
+		<div>
+			<RuhiMain />
+		</div>
+	);
 }
