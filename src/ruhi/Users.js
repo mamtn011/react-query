@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import AddUser from './AddUser';
+import { Link } from 'react-router-dom';
 
 const fetchedUsers = () => {
 	return axios.get('http://localhost:4000/ruhi');
@@ -11,7 +11,7 @@ const deleteUser = (userId) => {
 	return axios.delete(`http://localhost:4000/ruhi/${userId}`);
 };
 
-export default function Users({ initialData }) {
+export default function Users() {
 	const queryClient = useQueryClient();
 
 	const {
@@ -38,13 +38,17 @@ export default function Users({ initialData }) {
 	return (
 		<div>
 			<h1>All Users</h1>
-			{<AddUser />}
+
 			{user?.data.map((elm) => {
 				const { name, email, id } = elm;
 				return (
 					<div key={elm.id}>
-						Name- <p>{name}</p>
-						Email- <p>{email}</p>
+						<p>
+							Name: <span>{name}</span>
+						</p>
+						<p>
+							Email:<span>{email}</span>
+						</p>
 						<button onClick={() => handelClick(id)}>Delete</button>
 					</div>
 				);

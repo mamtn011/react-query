@@ -5,10 +5,9 @@ import React, { useState } from 'react';
 const addUser = (addUserData) => {
 	return axios.post('http://localhost:4000/ruhi', addUserData);
 };
-const UpdateUser = () => {
-	return axios.put('http://localhost:4000/ruhi', );
+const updateUser = (id, data) => {
+	return axios.put(`http://localhost:4000/ruhi/${id}`, data);
 };
-
 
 export default function AddUser() {
 	const [initialData, setInitialData] = useState({
@@ -29,6 +28,8 @@ export default function AddUser() {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 		},
 	});
+	
+
 	if (isLoading) return <h2>Loading...</h2>;
 	if (error) return <h2>{error.message}</h2>;
 	const handelSubmit = (e) => {
